@@ -94,6 +94,7 @@ FDM.export = function(print, online, ondone, ondebug) {
             has_abl: hasAbl,
             direct_drive: directDrive,
             origin_center: originCenter,
+            extrude_abs: extrudeAbs,
             fw_retract: fwRetract,
             bed_round: bedRound,
             bed_belt: isBelt,
