@@ -789,8 +789,6 @@ gapp.register("kiri.init", [], (root, exports) => {
             ui.deviceRound.checked = dev.bedRound;
             ui.deviceOrigin.checked = dev.outputOriginCenter || dev.originCenter || dev.bedRound;
             ui.fwRetract.checked = dev.fwRetract;
-            ui.deviceAbl.checked = dev.hasAbl;
-            ui.directDrive.checked = dev.directDrive;
             if (!dev.filamentSource) ui.filamentSource.selectedIndex = 0;
 
             // add extruder selection buttons
