@@ -285,6 +285,13 @@ FDM.export = function(print, online, ondone, ondebug) {
         appendSub("; Bed left:{left} right:{right} top:{top} bottom:{bottom}");
         append(`; Bed type: ${bedType}`);
         append(`; Target: ${filter[mode]}`);
+
+        if (typeof device.preambleComments !== "undefined" && Array.isArray(device.preambleComments)) {
+            device.preambleComments.forEach(function (line) {
+                append(line);
+            });
+        }
+
         // inject thumbnail preview
         if (exportThumb && worker.snap) {
             let { width, height, url } = worker.snap;
@@ -295,6 +302,7 @@ FDM.export = function(print, online, ondone, ondebug) {
             }
             append('; thumbnail end');
         }
+
         append("; --- process ---");
         for (let pk in process) {
             appendTok("; ", pk, " = ", process[pk]);
