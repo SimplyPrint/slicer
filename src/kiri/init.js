@@ -834,8 +834,6 @@ gapp.register("kiri.init", [], (root, exports) => {
                 ui.deviceRound,
                 ui.deviceBelt,
                 ui.fwRetract,
-                ui.deviceAbl,
-                ui.directDrive,
                 ui.filamentSource,
                 ui.deviceZMax,
                 ui.gcodeTime,
