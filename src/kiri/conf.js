@@ -296,7 +296,7 @@ const conf = exports({
                 // other stored info like palette3 config
                 extras: {},
                 hasAbl: false,
-                useAbl: false,
+                startPrintUseAbl: false,
                 directDrive: false
             },
             // process defaults FDM:Process
