@@ -536,7 +536,7 @@ class OpOutline extends CamOp {
         let shadow = [];
         let slices = [];
         let intopt = {
-            down: true, min: 0, fit: true, off: 0.01,
+            down: true, min: zBottom, fit: true, off: 0.01,
             max: op.top ? zMax + ztOff : undefined
         };
         let indices = slicer.interval(op.down, intopt);
@@ -1269,7 +1269,7 @@ class OpPocket extends CamOp {
                 toolDiam = toolOver;
             }
             if (contour) {
-                expand = engrave ? 0 : toolOver * 2;
+                expand = engrave ? 0 : expand;
             }
             if (expand) {
                 polys = POLY.offset(polys, expand);
@@ -1298,7 +1298,8 @@ class OpPocket extends CamOp {
                     let count = engrave ? 1 : 999;
                     slice.camTrace = { tool, rate, plunge };
                     if (toolDiam) {
-                        POLY.offset(clip, [ -toolDiam / 2, -toolOver ], {
+                        const offs = contour ? [ expand ? expand : -0.02, -toolOver ] : [ -toolDiam / 2, -toolOver ];
+                        POLY.offset(clip, offs, {
                             count, outs: slice.camLines = [], flat:true, z
                         });
                     } else {
@@ -1420,10 +1421,14 @@ class OpPocket extends CamOp {
 
     prepare(ops, progress) {
         let { op, state, sliceOut } = this;
-        let { setTool, setSpindle } = ops;
+        let { setTool, setSpindle, setTolerance } = ops;
 
         setTool(op.tool, op.rate);
         setSpindle(op.spindle);
+
+        if (this.topo) {
+            setTolerance(this.topo.tolerance);
+        }
 
         let i=0, l=sliceOut.length;
         for (let slice of sliceOut.filter(s => s.camLines)) {
